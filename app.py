@@ -10,13 +10,14 @@ photos = []
 favMovies = ["creed", "creed II", "white chicks", "howl's moving castle"]
 
 
-for name in favMovies:
-    data = getMovie(name)
-    titles.append(data['titles'])
-    overviews.append(data['overviews'])
-    photos.append(data['photos'])
+
 @app.route("/")
 def index():
+    for name in favMovies:
+        data = getMovie(name)
+        titles.append(data['titles'])
+        overviews.append(data['overviews'])
+        photos.append((data['photos']))
     return render_template("index.html", favImages = photos, titles = titles, overviews = overviews)
 #print(titles, '\n')
 #print(overviews, '\n')
