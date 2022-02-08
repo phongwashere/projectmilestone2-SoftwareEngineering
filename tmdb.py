@@ -16,26 +16,14 @@ def getMovie(nameMovie):
 
     response = requests.get(BASE_URL, params = params)
     movies = response.json()
-    data = movies['results']
+    datas = movies['results']
 
-    def get_title(info):
-        return info['title']
-
-    def get_overview(info):
-        return info['overview']
-
-    def get_photo(info):
-        return info['poster_path']
-
-    titles = map(get_title, data)
-    overviews = map(get_overview, data)
-    photos = map(get_photo, data)
-
-    return{
-        'titles': list(titles)[0:1],
-        'overviews': list(overviews)[0:1],
-        'photos': list(photos)[0:1]
-    }
+    for data in datas[0:1]:
+        return{
+            'titles': data['title'],
+            'overviews': data['overview'],
+            'photos': data['poster_path']
+        }
     #print("Title:", list(titles)[0:1], "\n")
     #print("Overview:", list(overviews)[0:1], "\n")
     #print("Photo:", list(photos)[0:1], "\n")
