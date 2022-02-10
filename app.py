@@ -1,23 +1,24 @@
 import os
+import random
 from flask import Flask, render_template
 from tmdb import getMovie
+from Wikiapi import wikiSearch
 
 app = Flask(__name__)
 
-titles = []
-overviews = []
-photos = []
+amount = [0, 1, 2, 3]
 favMovies = ["creed", "creed II", "white chicks", "howl's moving castle"]
-
-
 
 @app.route("/")
 def index():
-    for name in favMovies:
-        data = getMovie(name)
-        titles.append(data['titles'])
-        overviews.append(data['overviews'])
-        photos.append((data['photos']))
+    titles = []
+    overviews = []
+    photos = []
+    i = random.choice(amount)
+    data = getMovie(favMovies[i])
+    titles.append(data['titles'])
+    overviews.append(data['overviews'])
+    photos.append((data['photos']))
     return render_template("index.html", favImages = photos, titles = titles, overviews = overviews)
 #print(titles, '\n')
 #print(overviews, '\n')

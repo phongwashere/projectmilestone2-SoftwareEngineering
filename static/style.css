@@ -1,13 +1,10 @@
 body {
-    background-color: #f3e5f5;
+    background-image: url(https://image.tmdb.org/t/p/w500{{favImages[0]}});
     font-family: 'Courier New', monospace;
 }
 
 .container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    gap: 15px 10px;
+    text-align: center;
 }
 
 .item {

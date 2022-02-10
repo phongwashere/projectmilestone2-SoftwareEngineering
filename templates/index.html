@@ -2,19 +2,17 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href='style.css'/>
+    <link rel="stylesheet" href='/static/style.css'/>
 </head>
 
 <body>
     <h1>Phong's favorite movies:</h1>
     <div class='container'>
-        {% for i in range(4) %}
         <div class='item'>
-            <p><b>{{titles[i]}}</b></p>
-            <p>{{overviews[i]}}</p>
-            <p><img src=https://image.tmdb.org/t/p/w500{{favImages[i]}}></p>
+            <p><b>{{titles[0]}}</b></p>
+            <p>{{overviews[0]}}</p>
+            <p><img src=https://image.tmdb.org/t/p/w500{{favImages[0]}}></p>
         </div>
-        {% endfor %}
     </div>
 
 </body>
