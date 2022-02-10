@@ -1,8 +1,8 @@
-import os
+""" System Module. """
+#import os
 import random
 from flask import Flask, render_template
-from tmdb import getMovie
-from Wikiapi import wikiSearch
+from tmdb import getmovie
 
 app = Flask(__name__)
 
@@ -11,11 +11,12 @@ favMovies = ["creed", "creed II", "white chicks", "howl's moving castle"]
 
 @app.route("/")
 def index():
+    """ dynamically generating the data and returning webpage data. """
     titles = []
     overviews = []
     photos = []
     i = random.choice(amount)
-    data = getMovie(favMovies[i])
+    data = getmovie(favMovies[i])
     titles.append(data['titles'])
     overviews.append(data['overviews'])
     photos.append((data['photos']))
