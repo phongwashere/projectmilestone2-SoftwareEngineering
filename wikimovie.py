@@ -19,5 +19,5 @@ def wikisearch(moviename):
     rsession = session.get(url=url, params=params)
     data = rsession.json()
 
-    if data['query']['search'][0]['title'] == searchpage:
-        print("Your search page '" + searchpage + "' exists on English Wikipedia")
+    item = data['query']['search'][0]['pageid']
+    return item

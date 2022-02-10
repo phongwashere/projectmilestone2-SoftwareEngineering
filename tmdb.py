@@ -24,8 +24,23 @@ def getmovie(namemovie):
         return{
             'titles': data['title'],
             'overviews': data['overview'],
-            'photos': data['poster_path']
+            'photos': data['poster_path'],
+            'movieid': data['id']
         }
-    #print("Title:", list(titles)[0:1], "\n")
-    #print("Overview:", list(overviews)[0:1], "\n")
-    #print("Photo:", list(photos)[0:1], "\n")
+
+def getgenre(movieid):
+    """ grabbing movie genre using tmdb api. """
+    base_url = ("https://api.themoviedb.org/3/movie/"+str(movieid))
+    api_key = os.getenv("API_KEY")
+
+    params = {
+    "api_key": api_key,
+    }
+
+    feedback = requests.get(base_url, params = params)
+    genres = feedback.json()['genres']
+    moviegenre = []
+    for genre in genres:
+        moviegenre.append(genre['name'])
+
+    return moviegenre
