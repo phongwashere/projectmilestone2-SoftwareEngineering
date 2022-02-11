@@ -15,7 +15,7 @@ https://project1-softwareengineering.herokuapp.com/
 
 export API_KEY = $your api key$
 
-## Be sure to replay the $$$$ as well
+## Be sure to replace the $$$$ as well
 7. Change the directory of your terminal to the repository of the app if you have not already
 8. Run python app.py or python3 app.py
 
