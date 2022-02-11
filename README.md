@@ -32,3 +32,8 @@ export API_KEY = $your api key$
         I solved this by creating a list of numbers that contained the same amount of numbers
         as there were films. I then used the random library to randomly select a number within
         that list and display that movie.
+    ~ The most recent issue I've come across is a keyError after deploying my web app to heroku
+        I solved this by making sure my API_KEYs for my third party APIs are all included in the heroku variable config file.
+
+
+## we are using flask as our web app framework. libraries such as dotenv are used to grab our .env file. os and random are also other important libraries that we used in our web application.

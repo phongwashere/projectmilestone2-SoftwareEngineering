@@ -27,7 +27,7 @@ def index():
     overviews.append(data['overviews'])
     photos.append((data['photos']))
     return render_template(
-        "index.html", websites = websites, genres = genres, 
+        "index.html", websites = websites, genres = genres,
         favImages = photos, titles = titles, overviews = overviews
     )
 
