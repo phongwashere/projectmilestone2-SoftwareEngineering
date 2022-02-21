@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/formstyle.css">
+    </head>
+    <p>
+        {% with messages = get_flashed_messages() %}
+			{% if messages %}
+				<ul id="flashes" class=flashes>
+					{% for message in messages %}
+						<li><b>{{ message }}</b></li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		{% endwith %}
+    </p>
+    <body>
+        <h1>Signup Page</h1>
+        <form method="POST" action="/signup">
+            <input type="text" name="Username">
+            <input type="submit" value="Signup!">
+        </form>
+        <form method="POST" action="/login">
+            <input type="submit" value="Login Page">
+        </form>
+    </body>
+</html>
