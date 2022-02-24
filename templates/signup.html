@@ -14,13 +14,12 @@
 		{% endwith %}
     </p>
     <body>
+        <a href="{{ url_for('index2') }}"><b>Already have an account? Login!</b></a>
         <h1>Signup Page</h1>
-        <form method="POST" action="/signup">
-            <input type="text" name="Username">
-            <input type="submit" value="Signup!">
-        </form>
-        <form method="POST" action="/login">
-            <input type="submit" value="Login Page">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            {{ form.username }}
+            {{ form.submit }}
         </form>
     </body>
 </html>

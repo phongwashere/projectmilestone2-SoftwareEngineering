@@ -38,3 +38,8 @@ body {
 .container {
     text-align: center;
 }
+
+form{
+	text-align: center;
+	padding-bottom: 20px;
+}

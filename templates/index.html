@@ -6,7 +6,8 @@
 </head>
 
 <body>
-    <h1><b>Welcome!</b></h1>
+    <a href="{{ url_for('logout') }}">Press here to logout!</a>
+    <h1>Welcome {{current_user.username}}!</h1>
     <h2>Explore Phong's Favorite Movies</h2>
     <div class='container'>
         <div>
@@ -17,10 +18,10 @@
             <p><img class='tv' src=https://image.tmdb.org/t/p/w500{{favImages[0]}}></p>
         </div>
     </div>
-    <form method="POST" action="/undefined">
-        <input type="text" name="movieName">
-        <input type="integer" name="rating">
-        <input type="text" name="review">
+    <form method="POST" action="/request">
+        Movie ID:<input type="text" name="movieID">
+        Rating(out of 5):<input type="integer" name="rating">
+        Review:<input type="text" name="review">
         <input type="submit" value="Post Your Review!">
     </form>
 </body>
