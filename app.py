@@ -1,6 +1,5 @@
 """ System Module. """
 import os
-from pydoc import render_doc
 import random
 import flask
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
@@ -25,6 +24,7 @@ login_manager.login_view = "index2"
 
 @login_manager.user_loader
 def load_user(user_id):
+    """ grabbing user_id to track """
     return userRating.query.get(int(user_id))
 
 class userRating(db.Model, UserMixin):
@@ -44,14 +44,17 @@ class reviews(db.Model):
 db.create_all()
 
 class RegisterForm(FlaskForm):
+    """ creating a register form to sign up """
     username = StringField(validators=[InputRequired(), Length(min=4, max=50)], render_kw={"placeholder": "Username"})
     submit = SubmitField("Register")
     def validate_username(self, username):
+        """ raising validation errors """
         existing_user_username = userRating.query.filter_by(username=username.data).first()
         if existing_user_username:
             raise ValidationError('User already exists. Please choose a different username.')
 
 class LoginForm(FlaskForm):
+    """ creating a login form to authentificate user """
     username = StringField(validators=[InputRequired(), Length(min=4, max=50)], render_kw={"placeholder": "Username"})
     submit = SubmitField("Login")
 
@@ -89,6 +92,7 @@ def index2():
 @app.route('/logout', methods=['GET','POST'])
 @login_required
 def logout():
+    """ logging the user out """
     logout_user()
     return flask.redirect(flask.url_for('index2'))
 
@@ -117,22 +121,26 @@ def forum():
 @login_required
 def rating():
     """ route to show movie search and ratings by user """
-    data = flask.request.form
-    movie = data['movieID']
-    moviedata = getgenre(movie)
-    movieinfo = getmovie(moviedata['titles'])
-    titles = moviedata['titles']
-    wiki = wikisearch(titles)
-    overviews = moviedata['overviews']
-    photos = movieinfo['photos']
-    genres = moviedata['moviegenre']
-    new_rating = reviews(username=current_user.username ,movieID=data['movieID'], rating=data['rating'], review=data['review'])
-    db.session.add(new_rating)
-    db.session.commit()
-    rows = reviews.query.filter_by(movieID=movie).all()
-    return flask.render_template('reviews.html',rows=rows, movie=movie,
-    wiki = wiki, genres = genres, favImages = photos, titles = titles, overviews = overviews, websites = wiki
-    )
+    try:
+        data = flask.request.form
+        movie = data['movieID']
+        moviedata = getgenre(movie)
+        movieinfo = getmovie(moviedata['titles'])
+        titles = moviedata['titles']
+        wiki = wikisearch(titles)
+        overviews = moviedata['overviews']
+        photos = movieinfo['photos']
+        genres = moviedata['moviegenre']
+        new_rating = reviews(username=current_user.username ,movieID=data['movieID'], rating=data['rating'], review=data['review'])
+        db.session.add(new_rating)
+        db.session.commit()
+        rows = reviews.query.filter_by(movieID=movie).all()
+        return flask.render_template('reviews.html',rows=rows, movie=movie,
+        wiki = wiki, genres = genres, favImages = photos, titles = titles, overviews = overviews, websites = wiki
+        )
+    except:
+        flask.flash("movieID does not exist. Please try again.")
+        return flask.redirect(flask.url_for("forum"))
 
 app.run(
     #host=os.getenv('IP', '0.0.0.0'),

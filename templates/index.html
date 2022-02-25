@@ -7,6 +7,15 @@
 
 <body>
     <a href="{{ url_for('logout') }}">Press here to logout!</a>
+    {% with messages = get_flashed_messages() %}
+			{% if messages %}
+				<ul id="flashes" class=flashes>
+					{% for message in messages %}
+						<li><b>{{ message }}</b></li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		{% endwith %}
     <h1>Welcome {{current_user.username}}!</h1>
     <h2>Explore Phong's Favorite Movies</h2>
     <div class='container'>
