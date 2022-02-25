@@ -1,7 +1,7 @@
 If you want to clone my repository, there are a couple steps you will have to do.
 ## NOTE : All installations are required to run the code on your local machine
 ## link:
-https://project1-softwareengineering.herokuapp.com/
+https://fast-river-58626.herokuapp.com/
 
 ## In your terminal:
 1. Install pip in your terminal
@@ -39,7 +39,8 @@ heroku create
 10. creating a new database
 
 heroku addons:create heroku-postgresql:hobby-dev 
-# If that doesn't work, add a -a {your-app-name} to the end of the command, with no braces
+
+ If that doesn't work, add a -a {your-app-name} to the end of the command, with no braces
 
 11. use this command to show your DATABASE_URL and copy it
 
@@ -48,7 +49,8 @@ heroku config
 12. in your .env file, you will need to add:
 
 export DATABASE_URL='$your DATABASE_URL'
-# make sure to use " or ' to enclose your DATABASE_URL
+
+ make sure to use " or ' to enclose your DATABASE_URL
 
 13. also make sure that your DATABASE_URL starts with postgresql: instead of postgres:
 
