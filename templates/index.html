@@ -19,8 +19,14 @@
         </div>
     </div>
     <form method="POST" action="/request">
-        Movie ID:<input type="text" name="movieID">
-        Rating(out of 5):<input type="integer" name="rating">
+        MovieID:<input type="integer" name="movieID">
+        Rating(out of 5):<select name="rating">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
         Review:<input type="text" name="review">
         <input type="submit" value="Post Your Review!">
     </form>

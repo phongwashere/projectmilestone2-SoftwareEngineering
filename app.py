@@ -34,8 +34,9 @@ class userRating(db.Model, UserMixin):
 
 class reviews(db.Model):
     """ review database """
-    __tablename__ = "reviews"
+    __tablename__ = 'reviews'
     id = db.Column(db.Integer, primary_key = True)
+    username = db.Column(db.String(50), nullable = False)
     movieID = db.Column(db.Integer, nullable=False)
     rating = db.Column(db.Integer, nullable=False)
     review = db.Column(db.String(100), nullable=True)
@@ -103,24 +104,35 @@ def forum():
     data = getmovie(favMovies[counter])
     websites.append(wikisearch(favMovies[counter]))
     genres = getgenre(data['movieid'])
+    genre = genres['moviegenre']
     titles.append(data['titles'])
     overviews.append(data['overviews'])
     photos.append((data['photos']))
     return flask.render_template(
-        "index.html", websites = websites, genres = genres,
+        "index.html", websites = websites, genres = genre,
         favImages = photos, titles = titles, overviews = overviews
     )
 
 @app.route("/request", methods=["GET", "POST"])
+@login_required
 def rating():
     """ route to show movie search and ratings by user """
     data = flask.request.form
-    db.session.add(reviews(movieID=data['movieID'], rating=data['rating'], review=data['review']))
+    movie = data['movieID']
+    moviedata = getgenre(movie)
+    movieinfo = getmovie(moviedata['titles'])
+    titles = moviedata['titles']
+    wiki = wikisearch(titles)
+    overviews = moviedata['overviews']
+    photos = movieinfo['photos']
+    genres = moviedata['moviegenre']
+    new_rating = reviews(username=current_user.username ,movieID=data['movieID'], rating=data['rating'], review=data['review'])
+    db.session.add(new_rating)
     db.session.commit()
-    movieID = reviews.query.order_by(reviews.movieID).all()
-    rating = reviews.query.order_by(reviews.rating).all()
-    review = reviews.query.order_by(reviews.review).all()
-    return flask.render_template("reviews.html", movieID = movieID, rating = rating, review = review)
+    rows = reviews.query.filter_by(movieID=movie).all()
+    return flask.render_template('reviews.html',rows=rows, movie=movie,
+    wiki = wiki, genres = genres, favImages = photos, titles = titles, overviews = overviews, websites = wiki
+    )
 
 app.run(
     #host=os.getenv('IP', '0.0.0.0'),

@@ -39,8 +39,15 @@ def getgenre(movieid):
 
     feedback = requests.get(base_url, params = params)
     genres = feedback.json()['genres']
+    titles = feedback.json()['original_title']
+    overviews = feedback.json()['overview']
     moviegenre = []
     for genre in genres:
         moviegenre.append(genre['name'])
 
-    return moviegenre
+    return {
+        'moviegenre': moviegenre,
+        'titles': titles,
+        'overviews': overviews
+    }
+    
