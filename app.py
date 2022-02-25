@@ -14,7 +14,7 @@ from dotenv import find_dotenv, load_dotenv
 load_dotenv(find_dotenv())
 app = flask.Flask(__name__)
 app.secret_key = os.getenv('secretKey')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('db_url')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -143,7 +143,7 @@ def rating():
         return flask.redirect(flask.url_for("forum"))
 
 app.run(
-    #host=os.getenv('IP', '0.0.0.0'),
-    #port=int(os.getenv('PORT', 8080)),
+    host=os.getenv('IP', '0.0.0.0'),
+    port=int(os.getenv('PORT', 8080)),
     debug=True
 )
